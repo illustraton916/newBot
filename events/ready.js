@@ -3,7 +3,7 @@ module.exports = (client) => {
   const r = require('rethinkdb');
   const date = new Date()
 
-  r.connect( {host: '10.29.210.36', port: 28015 }, function(err, conn) {
+  r.connect( {host: config.ip, port: 28015 }, function(err, conn) {
     r.db(config.db).table("bot").get(client.user.id).run(conn, function(err, res) {
         if (res === null) {
           r.db(config.db).table("bot").insert({
@@ -37,7 +37,7 @@ module.exports = (client) => {
               //console.log(i);
 
           }
-          r.db("lisa").table("servers").filter({server:{budget: 0}}).orderBy("server").run(conn, function (err, res) {
+          r.db(config.db).table("servers").filter({server:{budget: 0}}).orderBy("server").run(conn, function (err, res) {
             if (client.guilds.cache.map(g => g).length !== res.length) {
               for (var i = 0; i < client.guilds.cache.map(g => g).length; i++) {
                 if (res.find(d => d.id === client.guilds.cache.map(g => g)[i].id) === undefined) {

@@ -15,7 +15,7 @@ module.exports = (client, message) => {
           message.react('➖')
         }
       }
-      r.connect( {host: '10.29.210.36', port: 28015 }, function(err, conn) {
+      r.connect( {host: config.ip, port: 28015 }, function(err, conn) {
         if (bufer.find(u => u.user.id === message.author.id)) {
           r.db(config.db).table("servers").get(message.guild.id).run(conn, function (err, serv) {
             if (Date.now() - bufer.find(id => id.user.id === message.author.id).user.time >= 1000) {
@@ -188,7 +188,7 @@ module.exports = (client, message) => {
         if (xp_bufer.find(xid => xid.user.id === message.author.id)) {
           if (Date.now() - xp_bufer.find(xid => xid.user.id === message.author.id).user.time >= 10000) {
 
-          r.connect( {host: '10.29.210.36', port: 28015}, function(err, conn) {
+          r.connect( {host: config.ip, port: 28015}, function(err, conn) {
             r.db(config.db).table("users").get(message.author.id).run(conn, function(err, user){
               //уровень города
               if (user.city.enable) {
