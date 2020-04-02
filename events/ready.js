@@ -3,7 +3,7 @@ module.exports = (client) => {
   const r = require('rethinkdb');
   const date = new Date()
 
-  r.connect( {host: '10.29.210.36', port: 28015, password: "Alexeyy101"}, function(err, conn) {
+  r.connect( {host: '10.29.210.36', port: 28015 }, function(err, conn) {
     r.db(config.db).table("bot").get(client.user.id).run(conn, function(err, res) {
         if (res === null) {
           r.db(config.db).table("bot").insert({

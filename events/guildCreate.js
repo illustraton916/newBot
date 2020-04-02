@@ -2,7 +2,7 @@ module.exports = (client, guildCreate) => {
   const config = require('../config.json')
   const r = require('rethinkdb');
   const date = new Date()
-  r.connect( {host: '10.29.210.36', port: 28015, password: "Alexeyy101"}, function(err, conn) {
+  r.connect( {host: '10.29.210.36', port: 28015 }, function(err, conn) {
     r.db(config.db).table("servers").insert({
       "id": guildCreate.id,
       "server": {

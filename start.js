@@ -3,7 +3,6 @@ const client = new Discord.Client();
 const config = require("./config.json");
 const fs = require('fs');
 const r = require('rethinkdb');
-const si = require('systeminformation')
 
 //console.log(require("./events/message").test);
 
@@ -36,7 +35,7 @@ fs.readdir("./events/", (err, files) => {
 });
 
 client.on('message', message => {
-  r.connect( {host: '10.29.210.36', port: 28015, password: "Alexeyy101"}, function(err, conn) {
+  r.connect( {host: '10.29.210.36', port: 28015 }, function(err, conn) {
     var cont = message.content.slice(config.prefix.length).split(" ");      //Узнает что написал пользователь после префиксп
     var args = cont.slice(1);                                               //Узнаёт что идёт после команды
     var cmd = client.commands.get(cont[0]);                                 //{ run: [AsyncFunction (anonymous)], config: { command: 'help' } }
