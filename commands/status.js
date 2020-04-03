@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args, config) => {
       ut = "<5 секунд"
     } else ut = ~~t + " секунд"
   }
-  console.log(client.uptime + "\n" + ut + "\n");
+  //console.log(client.uptime + "\n" + ut + "\n");
 
   message.channel.send({embed: {
     color: config.color,
