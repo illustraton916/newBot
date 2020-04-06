@@ -156,16 +156,14 @@ module.exports = (client, message) => {
                            }
                          }
                       } else {
-                        if (user.city.enable) {
-                          c = user.city.towers
-                          s = serv.server.tower_cost_multiplier
-                          a = c.type_1.people * s.type_1.multiplier  + c.type_2.people * s.type_2.multiplier + c.type_3.people * s.type_3.multiplier
-                          b = serv.server.message_cost * a + user.money
-                          r.db(config.db).table("users").get(message.author.id).update({"money": b}).run(conn)
-                        } else r.db(config.db).table("users").get(message.author.id).update({"money": user.money + serv.server.message_cost}).run(conn)
+                        c = user.city.towers
+                        s = serv.server.tower_cost_multiplier
+                        a = c.type_1.people * s.type_1.multiplier  + c.type_2.people * s.type_2.multiplier + c.type_3.people * s.type_3.multiplier
+                        b = serv.server.message_cost * a + user.money
+                        r.db(config.db).table("users").get(message.author.id).update({"money": b}).run(conn)
                       }
                     }
-                  }
+                  } else r.db(config.db).table("users").get(message.author.id).update({"money": user.money + serv.server.message_cost}).run(conn)
                 }
               })
               var idx = bufer.indexOf(bufer.find(u => u.user.id === message.author.id));
