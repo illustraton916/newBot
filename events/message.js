@@ -169,7 +169,7 @@ module.exports = (client, message) => {
                         b = serv.server.message_cost * a + user.money
                         r.db(config.db).table("users").get(message.author.id).update({"money": b}).run(conn)
                       }
-                    }
+                    } else r.db(config.db).table("users").get(message.author.id).update({"money": user.money + serv.server.message_cost}).run(conn)
                   } else r.db(config.db).table("users").get(message.author.id).update({"money": user.money + serv.server.message_cost}).run(conn)
                 }
               })

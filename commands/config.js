@@ -76,7 +76,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
       } else {
         message.channel.send({embed:{description: "Выберите что именно хотите изменить: `message_cost`, `noice`, `admin_role`, `noice_channel`, `capital`"}})
       }
-    }
+    } else message.channel.send({embed:{description: "У вас нету прав на использование этой команды"}})
   })
 };
 
