@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args, config) => {
     author: {name: message.member.user.username, icon_url: message.member.user.avatarURL},
     description: "Команды бота",
     fields: [
-      {name: "Города, экономика и тд", value: "`buildcity`, `cityinfo`, `bal`, `buy`, `give`, `shop`, `delcity`, `rename`, `top`"},
+      {name: "Города, экономика и тд", value: "`buildcity`, `cityinfo`, `bal`, `buy`, `give`, `shop`, `delcity`, `rename`, `top`, `usernoice`"},
       {name: "Системные", value: "`help`, `servsetings`, `status`, `config`"}
     ]
   }})
