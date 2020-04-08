@@ -1,5 +1,26 @@
 var bufer = []
 var xp_bufer = []
+var poin = [
+  {lvl: 10, points: 1},
+  {lvl: 30, points: 2},
+  {lvl: 50, points: 3},
+  {lvl: 70, points: 4},
+  {lvl: 90, points: 5},
+  {lvl: 100, points: 6},
+  {lvl: 120, points: 7},
+  {lvl: 140, points: 8},
+  {lvl: 160, points: 9},
+  {lvl: 180, points: 10},
+  {lvl: 200, points: 11},
+  {lvl: 225, points: 12},
+  {lvl: 250, points: 14},
+  {lvl: 270, points: 15},
+  {lvl: 300, points: 16},
+  {lvl: 335, points: 17},
+  {lvl: 370, points: 18},
+  {lvl: 405, points: 19},
+  {lvl: 440, points: 20}
+]
 
 module.exports = (client, message) => {
   const config = require('../config.json')
@@ -36,7 +57,7 @@ module.exports = (client, message) => {
                     n = user.city.towers.type_1.people + user.city.towers.type_2.people + user.city.towers.type_3.people
                     if (n > user.city.towers.total.people) {
                       r.db(config.db).table("users").get(message.author.id).update({"city":{"towers":{"total":{"people": n}}}}).run(conn)
-                      console.log(message.author.tag + " added people");
+                      //console.log(message.author.tag + " added people");
                     }
                   }
                   //назначение столицы
@@ -57,10 +78,35 @@ module.exports = (client, message) => {
                       })
                     })
                   }
+                  //поинты
+
+                  r.db("lisa").table("users").filter({city:{serverId: "172071216369238016"}})("city").orderBy("city_xp").run(conn, function (err, res) {
+
+                    let z = 4;
+                    let xp = 0
+                    let lvl = 0
+                    let last_i = 0
+
+                    for (var i = 0; i < res.length; i++) {
+                      xp += res[i].city_xp
+                    }
+                    while ((9 * z) < xp) {z++;lvl++}
+                    if (i > 4) {uxp = xp - ((z - 1) * 9);}
+
+                    for (var i = 0; i < poin.length; i++) {
+                      if (poin[i].lvl <= lvl) {last_i = i}
+                    }
+                    r.db(config.db).table("servers").get(message.guild.id).run(conn, function (err, serv) {
+                      if (serv.server.points !== poin[last_i].points) {
+                        r.db(config.db).table("servers").get(message.guild.id).update({server:{points: serv.server.points + 1, not_used_points: serv.server.points + 1}}).run(conn)
+                      };
+                    })
+                  })
+
                   //уровень и опыт
                   if (user.city.city_xp !== undefined) {
-                    var i = 4;
-                    var lvl = 0
+                    let i = 4;
+                    let lvl = 0
                     while ((9 * i) < user.city.city_xp) {i++;lvl++}
                     if (i > 4) {uxp = user.city.city_xp - ((i - 1) * 9)}
                     else {uxp = user.city.city_xp}
@@ -74,7 +120,7 @@ module.exports = (client, message) => {
                   var random = Math.floor(Math.random() * rd) + 1;
                   if (user.city.enable) {
                     if (user.city.serverId === message.guild.id) {
-                      console.log(random);
+                      //console.log(random);
                       if (random <= m_low) {
                         //console.log(random);
                         if (lvl >= 20) {

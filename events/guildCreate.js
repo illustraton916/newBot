@@ -16,6 +16,8 @@ module.exports = (client, guildCreate) => {
         "noice":true,
         "centers":{"cultural": [], "armed_forces": [], "researcher": [], "diplomatic": []},
         "points": 0,
+        "capital_date": 0,
+        "not_used_points": 0,
         "tower_cost_multiplier": {
           "type_1":{
             "multiplier": 1.3,

@@ -54,6 +54,8 @@ module.exports = (client) => {
                       "centers":{"cultural": [], "armed_forces": [], "researcher": [], "diplomatic": []},
                       "channel_for_new_people": null ,
                       "message_cost": 0.02,
+                      "capital_date": 0,
+                      "not_used_points": 0,
                       "tower_cost_multiplier": {
                         "type_1":{
                           "multiplier": 1.3,
