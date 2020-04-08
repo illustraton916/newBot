@@ -60,7 +60,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
           if (a[1]) {
             if ([18, 22, 21].some(elem => elem === a[1].length)) {
               u = userid()
-              r.db(config.db).table("servers").get(message.guild.id).update({server:{capital: u}}).run(conn)
+              r.db(config.db).table("servers").get(message.guild.id).update({server:{capital: u, capital_date: Date.now()}}).run(conn)
               r.db(config.db).table("users").get(u).run(conn, function (err, user) {
                 message.channel.send({embed:{description: "capital: " + user.city.name}})
               })
