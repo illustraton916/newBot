@@ -36,6 +36,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
           "**\nСервер/Страна: **" + client.guilds.cache.find(g => g.id === user.city.serverId).name +
           "**\nДата создания города: **" + user.city.createdAt + "**\nЗданий: **" + towers + "**\nЖителей: **" + people +
           "**\nУровень города: **" + lvl + "** Опыт: **" + uxp + "/" + i * 9 +
+          "**\nУведомления о новых жителях: **" + user.city.noice + 
           "**\nОсобняков: **" + user.city.towers.type_1.amount + "** Жителей: **" + user.city.towers.type_1.people + "/" + user.city.towers.type_1.amount * 2 +
           "**\nМногоэтажек: **" + user.city.towers.type_2.amount + "** Жителей: **" + user.city.towers.type_2.people + "/" + user.city.towers.type_2.amount * 4 +
           "**\nНебоскрёбов: **" + user.city.towers.type_3.amount + "** Жителей: **" + user.city.towers.type_3.people + "/" + user.city.towers.type_3.amount * 8 + "**",

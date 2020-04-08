@@ -40,21 +40,23 @@ module.exports = (client, message) => {
                     }
                   }
                   //назначение столицы
-                  r.db(config.db).table("users").filter({city:{serverId: message.guild.id}})("city")("towers")("total").orderBy("people").run(conn, function (err, top) {
-                    r.db(config.db).table("users").filter({city:{serverId: message.guild.id}}).orderBy("city").run(conn, function (err, city) {
-                      let l = []
-                      for (var i = 0; i < city.length; i++) {
-                        if (city[i].city.towers.total.people === top[top.length - 1].people) {
-                          l.push(city[i].city.name)
-                          if (!(l.length > 1)) {
-                            if (city[i].id !== serv.server.capital) {
-                              r.db(config.db).table("servers").get(message.guild.id).update({server: {capital: city[i].id}}).run(conn)
+                  if ((Date.now() - serv.server.capital_date) >= 86400000) {
+                    r.db(config.db).table("users").filter({city:{serverId: message.guild.id}})("city")("towers")("total").orderBy("people").run(conn, function (err, top) {
+                      r.db(config.db).table("users").filter({city:{serverId: message.guild.id}}).orderBy("city").run(conn, function (err, city) {
+                        let l = []
+                        for (var i = 0; i < city.length; i++) {
+                          if (city[i].city.towers.total.people === top[top.length - 1].people) {
+                            l.push(city[i].city.name)
+                            if (!(l.length > 1)) {
+                              if (city[i].id !== serv.server.capital) {
+                                r.db(config.db).table("servers").get(message.guild.id).update({server: {capital: city[i].id, capital_date: Date.now()}}).run(conn)
+                              }
                             }
                           }
                         }
-                      }
+                      })
                     })
-                  })
+                  }
                   //уровень и опыт
                   if (user.city.city_xp !== undefined) {
                     var i = 4;
@@ -72,7 +74,7 @@ module.exports = (client, message) => {
                   var random = Math.floor(Math.random() * rd) + 1;
                   if (user.city.enable) {
                     if (user.city.serverId === message.guild.id) {
-                      //console.log(random);
+                      console.log(random);
                       if (random <= m_low) {
                         //console.log(random);
                         if (lvl >= 20) {
