@@ -64,36 +64,43 @@ module.exports = (client, message) => {
                     else {uxp = user.city.city_xp}
                   } else {lvl = 0; uxp = 0; i = 0}
 
-                  low = 27.5
-                  middle = 17.5
-                  large = 7.5
+                  var m_low = 27.5
+                  var m_middle = 17.5
+                  var m_large = 7.5
 
                   var rd = 200
                   var random = Math.floor(Math.random() * rd) + 1;
                   if (user.city.enable) {
                     if (user.city.serverId === message.guild.id) {
-                      if (random <= low) {
+                      //console.log(random);
+                      if (random <= m_low) {
+                        //console.log(random);
                         if (lvl >= 20) {
-                           //console.log(lvl);
-                           if (large >= random) {
-                             large()
-                           } else if (middle >= random) {
-                             middle()
-                           } else if (low >= random) {
-                             low()
-                           }
+
+                          if (m_large >= random) {
+                            large()
+                          } else if (m_middle >= random) {
+                            middle()
+                          } else if (m_low >= random) {
+                            low();
+                          }
+
                          } else if (lvl >= 10) {
+
                            //console.log(lvl);
-                           if (middle >= random) {
+                           if (m_middle >= random) {
                              middle()
-                         } else if (low >= random) {
+                         } else if (m_low >= random) {
                              low()
                            }
+
                          } else if (lvl >= 0) {
-                           //  console.log(lvl + "\n");
-                           if (low >= random) {
+
+                           //console.log(lvl + "\n");
+                           if (m_low >= random) {
                              low()
                            }
+
                          }
                          function low() {
                            if (user.city.towers.type_1.amount * serv.server.tower_cost_multiplier.type_1.capacity > user.city.towers.type_1.people) {
