@@ -80,7 +80,7 @@ module.exports = (client, message) => {
                   }
                   //поинты
 
-                  r.db("lisa").table("users").filter({city:{serverId: "172071216369238016"}})("city").orderBy("city_xp").run(conn, function (err, res) {
+                  r.db(config.db).table("users").filter({city:{serverId: message.guild.id}})("city").orderBy("city_xp").run(conn, function (err, res) {
 
                     let z = 4;
                     let xp = 0
