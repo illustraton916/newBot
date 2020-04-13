@@ -106,11 +106,11 @@ module.exports = (client, message) => {
                   //уровень и опыт
                   if (user.city.city_xp !== undefined) {
                     let i = 4;
-                    let lvl = 0
-                    while ((9 * i) < user.city.city_xp) {i++;lvl++}
+                    var lvl_city = 0
+                    while ((9 * i) < user.city.city_xp) {i++;lvl_city++}
                     if (i > 4) {uxp = user.city.city_xp - ((i - 1) * 9)}
                     else {uxp = user.city.city_xp}
-                  } else {lvl = 0; uxp = 0; i = 0}
+                  } else {lvl_city = 0; uxp = 0; i = 0}
 
                   var m_low = 27.5
                   var m_middle = 17.5
@@ -118,12 +118,13 @@ module.exports = (client, message) => {
 
                   var rd = 200
                   var random = Math.floor(Math.random() * rd) + 1;
+                  
                   if (user.city.enable) {
                     if (user.city.serverId === message.guild.id) {
                       //console.log(random);
                       if (random <= m_low) {
                         //console.log(random);
-                        if (lvl >= 20) {
+                        if (lvl_city >= 20) {
 
                           if (m_large >= random) {
                             large()
@@ -133,7 +134,7 @@ module.exports = (client, message) => {
                             low();
                           }
 
-                         } else if (lvl >= 10) {
+                         } else if (lvl_city >= 10) {
 
                            //console.log(lvl);
                            if (m_middle >= random) {
@@ -142,7 +143,7 @@ module.exports = (client, message) => {
                              low()
                            }
 
-                         } else if (lvl >= 0) {
+                         } else if (lvl_city >= 0) {
 
                            //console.log(lvl + "\n");
                            if (m_low >= random) {

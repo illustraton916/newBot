@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
               d = 1 * a[1] + user.city.towers.type_1.amount
               c = user.money - b
               r.db(config.db).table("users").get(message.author.id).update({"money": c, "city":{"towers":{"type_1":{"amount": d}}}}).run(conn)
-              message.channel.send("> Вы купили " + a[1] + " зданий малого класса, у вас теперь: " + d + " зданий малого класс, вместимость жителей в малом классе " + d * server.server.tower_cost_multiplier.type_1.capacity)
+              message.channel.send("> Вы купили " + a[1] + " особняк, у вас теперь: " + d + " особняков, вместимость жителей в особняках " + d * server.server.tower_cost_multiplier.type_1.capacity)
             } else mon()
           } else {
             e = 1 + server.server.tower_cost_multiplier.type_1.multiplier * user.city.towers.type_1.amount
@@ -30,7 +30,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
               d = 1 * 1 + user.city.towers.type_1.amount
               c = user.money - e
               r.db(config.db).table("users").get(message.author.id).update({"money": c, "city":{"towers":{"type_1":{"amount": d}}}}).run(conn)
-              message.channel.send("> Вы купили здание малого класса")
+              message.channel.send("> Вы купили здание особняк")
             } else mon()
           }
         } else if (a[0] === "middle") {
@@ -42,7 +42,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
               d = 1 * a[1] + user.city.towers.type_2.amount
               c = user.money - b
               r.db(config.db).table("users").get(message.author.id).update({"money": c, "city":{"towers":{"type_2":{"amount": d}}}}).run(conn)
-              message.channel.send("> Вы купили " + a[1] + " зданий малого класса, у вас теперь: " + d + " зданий среднего класс, вместимость жителей в среднем классе " + d * server.server.tower_cost_multiplier.type_2.capacity)
+              message.channel.send("> Вы купили " + a[1] + " многоэтажек, у вас теперь: " + d + " многоэтажек, вместимость жителей в многоэтажках " + d * server.server.tower_cost_multiplier.type_2.capacity)
             } else mon()
           } else {
             e = 1 + server.server.tower_cost_multiplier.type_2.multiplier * user.city.towers.type_2.amount
@@ -51,7 +51,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
               d = 1 * 1 + user.city.towers.type_2.amount
               c = user.money - e
               r.db(config.db).table("users").get(message.author.id).update({"money": c, "city":{"towers":{"type_2":{"amount": d}}}}).run(conn)
-              message.channel.send("> Вы купили здание среднего класса")
+              message.channel.send("> Вы купили многоэтажку")
             } else mon()
           }
         } else if (a[0] === "large") {
@@ -63,7 +63,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
             if (user.money >= b) {
               c = user.money - b
               r.db(config.db).table("users").get(message.author.id).update({"money": c,"city":{"towers":{"type_3":{"amount": d}}}}).run(conn)
-              message.channel.send("> Вы купили " + a[1] + " зданий малого класса, у вас теперь: " + d + " зданий высокого класс, вместимость жителей в высоком классе " + d * server.server.tower_cost_multiplier.type_3.capacity)
+              message.channel.send("> Вы купили " + a[1] + " небоскрёб, у вас теперь: " + d + " небоскрёбов, вместимость жителей в небоскрёбах " + d * server.server.tower_cost_multiplier.type_3.capacity)
             } else mon()
           } else {
             e = 5 + server.server.tower_cost_multiplier.type_3.multiplier * user.city.towers.type_3.amount
@@ -72,7 +72,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
               d = 1 * 1 + user.city.towers.type_3.amount
               c = user.money - e
               r.db(config.db).table("users").get(message.author.id).update({"money": c,"city":{"towers":{"type_3":{"amount": d}}}}).run(conn)
-              message.channel.send("> Вы купили здание высокого уровня")
+              message.channel.send("> Вы купили небоскрёб")
             } else mon()
           }
         } else {
@@ -83,7 +83,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
       message.channel.send({embed:{
         color: config.color,
         author: {name: message.member.user.tag, icon_url: message.member.user.avatarURL},
-        description: "У вас нету города нищеброд"
+        description: "У вас нету города"
       /*  fields: [
           {name: "Баланс", value: user.money.toFixed(3), inline: false},
           {name: "Стоимость сообщения", value: b.toFixed(3), inline: false}
