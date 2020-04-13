@@ -34,7 +34,7 @@ module.exports.run = async (client, message, args, config) => {
       name: message.author.username,
       icon_url: message.author.avatarURL
     },
-    description: "**Версия 0.2.3**\n :fire: **Статистика** :fire:",
+    description: "**Версия 0.2.3 (3)**\n :fire: **Статистика** :fire:",
     fields: [
       {name: "Bot ID", value: client.user.id, inline: true},
       //{name: "owner ID", value: bot.settings.owner_ID, inline: true},
