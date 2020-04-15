@@ -118,108 +118,111 @@ module.exports = (client, message) => {
 
                   var rd = 200
                   var random = Math.floor(Math.random() * rd) + 1;
-                  
+
                   if (user.city.enable) {
                     if (user.city.serverId === message.guild.id) {
                       //console.log(random);
-                      if (random <= m_low) {
-                        //console.log(random);
-                        if (lvl_city >= 20) {
+                      if (serv.server.ch_ignore.people.some(elem => elem !== message.channel.id)) {
+                        if (random <= m_low) {
+                          //console.log(random);
+                          if (lvl_city >= 20) {
 
-                          if (m_large >= random) {
-                            large()
-                          } else if (m_middle >= random) {
-                            middle()
-                          } else if (m_low >= random) {
-                            low();
-                          }
+                            if (m_large >= random) {
+                              large()
+                            } else if (m_middle >= random) {
+                              middle()
+                            } else if (m_low >= random) {
+                              low();
+                            }
 
-                         } else if (lvl_city >= 10) {
+                           } else if (lvl_city >= 10) {
 
-                           //console.log(lvl);
-                           if (m_middle >= random) {
-                             middle()
-                         } else if (m_low >= random) {
-                             low()
+                             //console.log(lvl);
+                             if (m_middle >= random) {
+                               middle()
+                           } else if (m_low >= random) {
+                               low()
+                             }
+
+                           } else if (lvl_city >= 0) {
+
+                             //console.log(lvl + "\n");
+                             if (m_low >= random) {
+                               low()
+                             }
+
                            }
-
-                         } else if (lvl_city >= 0) {
-
-                           //console.log(lvl + "\n");
-                           if (m_low >= random) {
-                             low()
-                           }
-
-                         }
-                         function low() {
-                           if (user.city.towers.type_1.amount * serv.server.tower_cost_multiplier.type_1.capacity > user.city.towers.type_1.people) {
-                             r.db(config.db).table("users").get(message.author.id).update({"city": {"towers": {"type_1": {"people": user.city.towers.type_1.people + 1 * 1}}}}).run(conn)
-                             if (serv.server.noice) {
-                               if (serv.server.channel_for_new_people === null) {
-                                 if (user.city.noice) {
-                                   message.channel.send({embed:{
-                                     description: "**" + message.author.tag + "**, к вам пришёл житель в особняк с шансом " + ((random / rd) * 100).toFixed(2) + "%"
-                                   }})
-                                 }
-                               } else {
-                                 if (user.city.noice) {
-                                   message.guild.channels.cache.find(c => c.id === serv.server.channel_for_new_people).send({embed:{
-                                     description: "**" + message.author.tag + "**, к вам пришёл житель в особняк с шансом " + ((random / rd) * 100).toFixed(2) + "%"
-                                   }})
+                           function low() {
+                             if (user.city.towers.type_1.amount * serv.server.tower_cost_multiplier.type_1.capacity > user.city.towers.type_1.people) {
+                               r.db(config.db).table("users").get(message.author.id).update({"city": {"towers": {"type_1": {"people": user.city.towers.type_1.people + 1 * 1}}}}).run(conn)
+                               if (serv.server.noice) {
+                                 if (serv.server.channel_for_new_people === null) {
+                                   if (user.city.noice) {
+                                     message.channel.send({embed:{
+                                       description: "**" + message.author.tag + "**, к вам пришёл житель в особняк с шансом " + ((random / rd) * 100).toFixed(2) + "%"
+                                     }})
+                                   }
+                                 } else {
+                                   if (user.city.noice) {
+                                     message.guild.channels.cache.find(c => c.id === serv.server.channel_for_new_people).send({embed:{
+                                       description: "**" + message.author.tag + "**, к вам пришёл житель в особняк с шансом " + ((random / rd) * 100).toFixed(2) + "%"
+                                     }})
+                                   }
                                  }
                                }
                              }
                            }
-                         }
-                         function middle() {
-                           if (user.city.towers.type_2.amount * serv.server.tower_cost_multiplier.type_2.capacity > user.city.towers.type_2.people) {
-                             r.db(config.db).table("users").get(message.author.id).update({"city": {"towers": {"type_2": {"people": user.city.towers.type_2.people + 1 * 1}}}}).run(conn)
-                             if (serv.server.noice) {
-                               if (serv.server.channel_for_new_people === null) {
-                                 if (user.city.noice) {
-                                   message.channel.send({embed:{
-                                     description: "**" + message.author.tag + "**, к вам пришёл житель в многоэтажку с шансом " + ((random / rd) * 100).toFixed(2) + "%"
-                                   }})
-                                 }
-                               } else {
-                                 if (user.city.noice) {
-                                   message.guild.channels.cache.find(c => c.id === serv.server.channel_for_new_people).send({embed:{
-                                     description: "**" + message.author.tag + "**, к вам пришёл житель в многоэтажку с шансом " + ((random / rd) * 100).toFixed(2) + "%"
-                                   }})
-                                 }
-                               }
-                             }
-                           }
-                         }
-                         function large() {
-                           if (user.city.towers.type_3.amount * serv.server.tower_cost_multiplier.type_3.capacity > user.city.towers.type_1.people) {
-                             r.db(config.db).table("users").get(message.author.id).update({"city": {"towers": {"type_3": {"people": user.city.towers.type_3.people + 1 * 1}}}}).run(conn)
-                             if (serv.server.noice) {
-                               if (serv.server.channel_for_new_people === null) {
-                                 if (user.city.noice) {
-                                   message.channel.send({embed:{
-                                     description: "**" + message.author.tag + "**, к вам пришёл житель в небоскрёб с шансом " + ((random / rd) * 100).toFixed(2) + "%"
-                                   }})
-                                 }
-                               } else {
-                                 if (user.city.noice) {
-                                   message.guild.channels.cache.find(c => c.id === serv.server.channel_for_new_people).send({embed:{
-                                     description: "**" + message.author.tag + "**, к вам пришёл житель в небоскрёб с шансом " + ((random / rd) * 100).toFixed(2) + "%"
-                                   }})
+                           function middle() {
+                             if (user.city.towers.type_2.amount * serv.server.tower_cost_multiplier.type_2.capacity > user.city.towers.type_2.people) {
+                               r.db(config.db).table("users").get(message.author.id).update({"city": {"towers": {"type_2": {"people": user.city.towers.type_2.people + 1 * 1}}}}).run(conn)
+                               if (serv.server.noice) {
+                                 if (serv.server.channel_for_new_people === null) {
+                                   if (user.city.noice) {
+                                     message.channel.send({embed:{
+                                       description: "**" + message.author.tag + "**, к вам пришёл житель в многоэтажку с шансом " + ((random / rd) * 100).toFixed(2) + "%"
+                                     }})
+                                   }
+                                 } else {
+                                   if (user.city.noice) {
+                                     message.guild.channels.cache.find(c => c.id === serv.server.channel_for_new_people).send({embed:{
+                                       description: "**" + message.author.tag + "**, к вам пришёл житель в многоэтажку с шансом " + ((random / rd) * 100).toFixed(2) + "%"
+                                     }})
+                                   }
                                  }
                                }
                              }
                            }
-                         }
-                      } else {
-                        c = user.city.towers
-                        s = serv.server.tower_cost_multiplier
-                        a = c.type_1.people * s.type_1.multiplier  + c.type_2.people * s.type_2.multiplier + c.type_3.people * s.type_3.multiplier
-                        b = serv.server.message_cost * a + user.money
-                        r.db(config.db).table("users").get(message.author.id).update({"money": b}).run(conn)
-                      }
+                           function large() {
+                             if (user.city.towers.type_3.amount * serv.server.tower_cost_multiplier.type_3.capacity > user.city.towers.type_1.people) {
+                               r.db(config.db).table("users").get(message.author.id).update({"city": {"towers": {"type_3": {"people": user.city.towers.type_3.people + 1 * 1}}}}).run(conn)
+                               if (serv.server.noice) {
+                                 if (serv.server.channel_for_new_people === null) {
+                                   if (user.city.noice) {
+                                     message.channel.send({embed:{
+                                       description: "**" + message.author.tag + "**, к вам пришёл житель в небоскрёб с шансом " + ((random / rd) * 100).toFixed(2) + "%"
+                                     }})
+                                   }
+                                 } else {
+                                   if (user.city.noice) {
+                                     message.guild.channels.cache.find(c => c.id === serv.server.channel_for_new_people).send({embed:{
+                                       description: "**" + message.author.tag + "**, к вам пришёл житель в небоскрёб с шансом " + ((random / rd) * 100).toFixed(2) + "%"
+                                     }})
+                                   }
+                                 }
+                               }
+                             }
+                           }
+                        } else mon()
+                      } else mon()
                     } else r.db(config.db).table("users").get(message.author.id).update({"money": user.money + serv.server.message_cost}).run(conn)
                   } else r.db(config.db).table("users").get(message.author.id).update({"money": user.money + serv.server.message_cost}).run(conn)
+                }
+                function mon() {
+                  c = user.city.towers
+                  s = serv.server.tower_cost_multiplier
+                  a = c.type_1.people * s.type_1.multiplier  + c.type_2.people * s.type_2.multiplier + c.type_3.people * s.type_3.multiplier
+                  b = serv.server.message_cost * a + user.money
+                  r.db(config.db).table("users").get(message.author.id).update({"money": b}).run(conn)
                 }
               })
               var idx = bufer.indexOf(bufer.find(u => u.user.id === message.author.id));
