@@ -1,9 +1,11 @@
 module.exports.run = async (client, message, args, r, conn, config) => {
+  var a = args.filter(s => s !== '')
+
   r.db(config.db).table("users").get(message.author.id).run(conn, function(err, user){
     if (user.city.enable !== true){
-      if (user.money >= 5) {
-        if (args) {
-          b = user.money - 5
+      if (user.money >= 10) {
+        if (a.length !== 0) {
+          b = user.money - 10
           r.db(config.db).table("users").get(message.author.id).update({"money": b}).run(conn)
           const date = new Date()
           r.db(config.db).table("users").get(message.author.id).update({

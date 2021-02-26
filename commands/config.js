@@ -3,7 +3,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
   m = [0.1, 0.001]
   r.db(config.db).table("servers").get(message.guild.id).run(conn, function (err, serv) {
     if ([serv.server.capital, serv.server.owner_ID, serv.server.admin_role, "257926104889819136"].some(elem => elem === message.author.id)) {
-      if (a[0] === "message") {
+      if (a[0] === "message_cost") {
         if (a[1]) {
           if (a[1] <= m[0] && a[1] >= m[1]) {
             r.db(config.db).table("servers").get(message.guild.id).update({server:{message_cost: a[1] * 1}}).run(conn)
@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
           } else {message.channel.send({embed:{description: "Введите верное значение между " + m[0] + " и " + m[1] + " включно", color: config.color}})}
         } else {
           r.db(config.db).table("servers").get(message.guild.id).update({server:{message_cost: 0.01}}).run(conn)
-          message.channel.send({embed:{description: "message_cost: " + 0.01 + " (default)"}})
+          message.channel.send({embed:{description: "message_cost: `" + 0.01 + " (default)`"}})
         }
       } else if (a[0] === "noice") {
         if (a[1]){
@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
           }
         } else {
           r.db(config.db).table("servers").get(message.guild.id).update({server:{noice: true}}).run(conn)
-          message.channel.send({embed:{description: "noice: " + true + " (default)"}})
+          message.channel.send({embed:{description: "noice: `" + true + " (default)`"}})
         }
       } else if (a[0] === "admin_role") {
         if ([serv.server.owner_ID, "257926104889819136"].some(elem => elem === message.author.id)) {
@@ -40,7 +40,19 @@ module.exports.run = async (client, message, args, r, conn, config) => {
             }
           } else {
             r.db(config.db).table("servers").get(message.guild.id).update({server:{admin_role: null}}).run(conn)
-            message.channel.send({embed:{description: "admin_role: null"}})
+            message.channel.send({embed:{description: "admin_role: `null`"}})
+          }
+        }
+      } else if (a[0] === "noice_channel") {
+        if ([serv.server.owner_ID, serv.server.admin_role , "257926104889819136"].some(elem => elem === message.author.id)) {
+          if (a[1]) {
+            if (a[1].length === 21) {
+              r.db(config.db).table("servers").get(message.guild.id).update({server:{channel_for_new_people: a[1].slice(2).split(">")[0]}}).run(conn)
+              message.channel.send({embed:{description: "noice_channel: " + a[1]}})
+            }
+          } else {
+            r.db(config.db).table("servers").get(message.guild.id).update({server:{channel_for_new_people: null}}).run(conn)
+            message.channel.send({embed:{description: "noice_channel: `null`"}})
           }
         }
       } else if (a[0] === "capital") {
@@ -48,7 +60,7 @@ module.exports.run = async (client, message, args, r, conn, config) => {
           if (a[1]) {
             if ([18, 22, 21].some(elem => elem === a[1].length)) {
               u = userid()
-              r.db(config.db).table("servers").get(message.guild.id).update({server:{capital: u}}).run(conn)
+              r.db(config.db).table("servers").get(message.guild.id).update({server:{capital: u, capital_date: Date.now()}}).run(conn)
               r.db(config.db).table("users").get(u).run(conn, function (err, user) {
                 message.channel.send({embed:{description: "capital: " + user.city.name}})
               })
@@ -61,8 +73,10 @@ module.exports.run = async (client, message, args, r, conn, config) => {
             }
           }
         }
+      } else {
+        message.channel.send({embed:{description: "Выберите что именно хотите изменить: `message_cost`, `noice`, `admin_role`, `noice_channel`, `capital`"}})
       }
-    }
+    } else message.channel.send({embed:{description: "У вас нету прав на использование этой команды"}})
   })
 };
 

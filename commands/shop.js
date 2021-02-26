@@ -13,15 +13,15 @@ module.exports.run = async (client, message, args, r, conn, config) => {
         d = 1 + server.server.tower_cost_multiplier.type_3.multiplier * user.city.towers.type_3.amount
         if (d >= 90) d = 90
       } else d = 1
-      
+
       message.channel.send({embed:{
         color: config.color,
         author: {name: message.member.user.tag, icon_url: message.member.user.avatarURL},
         description: "Здесь цены на здания (у каждого пользователя по разному могут быть цены) и ~~предприятия~~",
         fields: [
-          {name: "Стоимость низкого здания", value: b.toFixed(3), inline: true},
-          {name: "Стоимость среднего здания", value: e.toFixed(3), inline: true},
-          {name: "Стоимость высокого здания", value: d.toFixed(3), inline: true}
+          {name: "Стоимость особняка", value: b.toFixed(3), inline: true},
+          {name: "Стоимость многоэтажек", value: e.toFixed(3), inline: true},
+          {name: "Стоимость небоскрёбов", value: d.toFixed(3), inline: true}
         ]
       }})
     })
